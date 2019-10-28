@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import Quotes from "./Quotes"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor (props) {
+    super(props);
+    this.handleButtonClick=this.handleButtonClick.bind(this);
+    this.state={ working:true };
+  }
+  
+  handleButtonClick () {
+    this.setState((state) => {
+      return {working: !state.working};
+    });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className={this.state.working ? "App-logo" : "App-logo-transformed"} alt="React Logo" />
+          <h1 className="App-title">Simpsons Quotes</h1>
+          <button onClick={this.handleButtonClick}>Change State</button>
+        </header>
+        <Quotes />
+      </div>
+    );
+  }
 }
 
 export default App;
